@@ -1,0 +1,27 @@
+<div class="jumbotron">
+  <div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2">
+			<form role="form" (submit)="onSubmit()">
+				<h2>Please Login</h2>
+				<hr class="colorgraph">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12">
+						<div class="form-group">
+							<input type="text" name="username" [(ngModel)]="username" class="form-control input-md" placeholder="Email" tabindex="1">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="password" name="password" class="form-control input-md" placeholder="Password" [(ngModel)]="password" tabindex="3">
+				</div>
+				<hr class="colorgraph">
+				<div class="row">
+					<div class="col-xs-12 col-md-6"><button type="submit" class="btn btn-primary btn-block btn-md">Login</button></div>
+					<div class="col-xs-12 col-md-6"><button class="btn btn-success btn-block btn-md"  [routerLink]="['/register']">Sign Up</button></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
