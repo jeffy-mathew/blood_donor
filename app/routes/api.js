@@ -169,6 +169,7 @@ module.exports = function (router) {
                             if (result[i].first_name != "" && result[i].pincode != "" && result[i].gender != "" && result[i].bloodgroup != undefined && result[i].phone != "") {
                                 donor[j] = new Donor();
                                 donor[j].first_name = result[i].first_name;
+                                donor[j].location = result[i].location;
                                 donor[j].phone = result[i].phone;
                                 donor[j].email = result[i].email;
                                 donor[j].pincode = result[i].pincode;
@@ -231,6 +232,7 @@ module.exports = function (router) {
                                 https.request(options, callback).end();
                                 donor[j].last_name = result[i].last_name;
                                 donor[j].gender = result[i].gender;
+                                donor[j].location = result[i].location;
                                 donor[j].address_line1 = result[i].address_line1;
                                 donor[j].address_line2 = result[i].address_line2;
                                 donor[j].status = "NotConfirmed";
@@ -274,6 +276,7 @@ module.exports = function (router) {
                                 donor[j] = new Donor();
                                 donor[j].first_name = result[i].first_name;
                                 donor[j].phone = result[i].phone;
+                                donor[j].location = result[i].location;
                                 donor[j].email = result[i].email;
                                 donor[j].pincode = result[i].pincode;
                                 donor[j].latitude = undefined;
@@ -361,6 +364,20 @@ module.exports = function (router) {
 
         });
     });
-
+    //Location
+    router.get('/locations', function (req, res, next) {
+        Donor.getLocations(function (err,location) {
+            if (err) {
+                        return res.json({
+                            err_desc: "Something went wrong",
+                        });
+                    }
+            else {
+                res.json({
+                    data:location
+                })
+            }        
+        });
+    });
     return router;
 }

@@ -5,6 +5,7 @@ var UserSchema= new Schema({
     "first_name": {type: String, lowercase: true, required: true},
     "last_name": {type: String, required: true},
     "email": {type: String, required:true},
+    "location" : {type: String,required:true},
     "phone": {type: Number, required:true,unique:true},
     "address_line1": {type: String, required:true},
     "address_line2": {type: String, required:true},
@@ -18,13 +19,19 @@ var UserSchema= new Schema({
 });
 
 var Donor  = module.exports = mongoose.model('Donor',UserSchema);
+
 module.exports.addDonor =  function (newDonor, callback){
-    
-        newDonor.save(callback);
+    newDonor.save(callback);
 }
 
 module.exports.updateLocation = function(newDonor,email,callback){
     newDonor.update({email:email},function(err, affected, resp) {
-   console.log(resp);
+    console.log(resp);
 });
 }
+
+module.exports.getLocations = function(callback){
+    Donor.find({},'location',callback);
+};
+
+

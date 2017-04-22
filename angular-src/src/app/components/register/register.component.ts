@@ -37,6 +37,7 @@ export class RegisterComponent implements OnInit {
       pwd:this.pwd,
       pwdcnf:this.pwdcnf
     };
+    console.log(this.phone);
     if(!this.validateService.validateRegister(newreg)){
       this.flashMessage.show("Fill all fields",{cssClass:'alert-danger',timeout:2000});
       return false;
