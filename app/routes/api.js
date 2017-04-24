@@ -1,4 +1,5 @@
 var User = require('../models/user');
+var DonorDate = require('../models/donordate');
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
 var config = require('../../config/database');
@@ -283,7 +284,7 @@ module.exports = function (router) {
                                 donor[j].longitude = undefined;
                                 var options = {
                                     host: 'maps.googleapis.com',
-                                    path: '/maps/api/geocode/json?&address=' + donor[j].pincode + '&key=AIzaSyD4M1TkzIl0nyKObyXtrCOgHJpN_BDPb6A',
+                                    path: '/maps/api/geocode/json?&address=' + donor[j].pincode + '&key=AIzaSyD4M1TkzIl0nyKObyXtrCOgHJpN_BDPb6A'
                                 }
                                 callback = function (response) {
                                     var str = '';
@@ -364,20 +365,77 @@ module.exports = function (router) {
 
         });
     });
-    //Location
+    //Location for search bar
     router.get('/locations', function (req, res, next) {
-        Donor.getLocations(function (err,location) {
+        Donor.getLocations(function (err, location) {
             if (err) {
-                        return res.json({
-                            err_desc: "Something went wrong",
-                        });
-                    }
-            else {
+                return res.json({
+                    err_desc: "Something went wrong"
+                });
+            } else {
                 res.json({
-                    data:location
+                    data: location
                 })
-            }        
+            }
         });
     });
+
+    //Search Engine
+    router.post('/search', function (req, res, next) {
+        location = req.body.loc;
+        bgroup = req.body.bgroup;
+        var selecteddonors = [];
+        var donordistance = [];
+        Donor.searchByBgroup(bgroup, function (err, data) {
+            if (err) {
+                return res.json({
+                    err_desc: "Something went wrong"
+                });
+            } else {
+                var k = 0;
+                var i = 0;
+                for (i = 0; i < data.length; i++) {
+                    var options = {
+                        host: 'maps.googleapis.com',
+                        path: 'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=' + location + '&destinations=' + data[i].latitude + ',' + data[i].longitude + '&key=AIzaSyD4M1TkzIl0nyKObyXtrCOgHJpN_BDPb6A',
+
+                    }
+                    var count = i;
+
+                    distanceapi = function (response) {
+                        var result = '';
+                        response.on('data', function (chunk) {
+                            result += chunk;
+                        });
+                        response.on('end', function () {
+                            result = JSON.parse(result);
+                            distance = result.rows[0].elements[0].distance.text;
+                            distance = distance.replace(/ km/, '');
+                           
+                            if (distance < 190) {
+                                selecteddonors[k] = data[count];
+                                donordistance[k] = distance;
+                                k++;
+                                
+                                returndata(count, data.length);
+                            }
+                        });
+                    }
+                    https.request(options, distanceapi).end();
+                }
+            }
+        })
+
+        function returndata(i, length) {
+            if (i == length-1) {
+                console.log(i)
+                res.json({
+                    data: selecteddonors,
+                    distance: donordistance
+                })
+            }
+        }
+    })
+
     return router;
 }

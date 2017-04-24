@@ -19,7 +19,8 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {ValidateService} from './services/validate.service';
 import {RegisterService} from './services/register.service';
 import {LoginService} from './services/login.service';
-import {LocationService} from './services/location.service'
+import {LocationService} from './services/location.service';
+import {SearchService} from './services/search.service'
 
 import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
@@ -34,7 +35,7 @@ const appRoutes : Routes = [
   {path:'excelconverter', component: ExcelconverterComponent, canActivate:[AdminGuard]},
   {path:'login', component: LoginComponent},
   {path:'register', component: RegisterComponent},
-  {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]}
+  {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
 ];
 
 @NgModule({
@@ -67,7 +68,8 @@ const appRoutes : Routes = [
     LoginService,
     AuthGuard,
     AdminGuard,
-    LocationService
+    LocationService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })

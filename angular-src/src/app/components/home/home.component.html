@@ -1,12 +1,17 @@
-<form>
-  <div class="form-group">
-    <div class="col-md-4">
-      <ng2-completer [inputClass]="'form-control'" [placeholder]="'Search City'" [(ngModel)]="searchStr" [autofocus]="true" [datasource]="dataService"
-        [minSearchLength]="1" name="searchStr"></ng2-completer>
+<div class="jumbotron" style="position:relative;top: 50%;bot">
+  <div class="row">
+  <form role="form" (submit)="onSubmit()">
+    <div class="form-group">
+      <div class="col-md-5">
+        <label>Search City</label>
+        <ng2-completer [inputClass]="'form-control'" [placeholder]="'Search City'" [(ngModel)]="searchStr" [autofocus]="true" [datasource]="dataService"
+          [minSearchLength]="1" name="searchStr"></ng2-completer>
+      </div>
     </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <select class="form-control" id="sel1">
+    <div class="form-group">
+      <div class="col-md-2">
+        <label>Blood Group</label>
+        <select class="form-control" [(ngModel)]="bgroup" name="bgroup">
           <option>O+ve</option>
           <option>O-ve</option>
           <option>B+ve</option>
@@ -14,11 +19,20 @@
         </select>
       </div>
     </div>
-    <div class="col-md-4">
-      <ng2-datepicker [options]="options" class="form-control"  [(ngModel)]="date" name="date"></ng2-datepicker>
+    <div class="form-group">
+      <div class="col-md-3">
+        <label>Select Date</label>
+        <ng2-datepicker [options]="options" class="form-control" [(ngModel)]="date" name="date"></ng2-datepicker>
+      </div>
     </div>
-    <div class="col-md-2">
-      <button class="btn btn-primary">Search</button>
+    <div class="form-group">
+      <div class="col-md-2">
+        <label>&nbsp;</label>
+        <button class="btn btn-primary btn-block" *ngIf="loginService.loginTrue()" type="submit">Search</button>
+        <label>&nbsp;</label>
+        <button class="btn btn-primary btn-block" [routerLink]="['/login']" *ngIf="!loginService.loginTrue()">Search</button>
+      </div>
     </div>
+  </form>
   </div>
-</form>
+</div>

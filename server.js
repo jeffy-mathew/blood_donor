@@ -2,8 +2,6 @@ var express = require('express');
 var app =express();
 var morgan=require('morgan');
 var mongoose=require('mongoose');
-var User=require('./app/models/user');
-
 
 var bodyParser = require('body-parser');
 var router = express.Router();
