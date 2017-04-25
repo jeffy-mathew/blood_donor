@@ -13,7 +13,6 @@ var Donor = require('../models/donors');
 var https = require('https');
 var http = require('http');
 var async = require("async");
-var text = require('textbelt');
 module.exports = function (router) {
 
     var storage = multer.diskStorage({ //multers disk storage settings
