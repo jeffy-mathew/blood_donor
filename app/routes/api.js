@@ -45,7 +45,63 @@ module.exports = function (router) {
                 res.status(401).send('Unauthorized');
         };
     };
-
+   router.post('/adddonor',passport.authenticate('jwt',{
+        session: false
+        }),adminCheck('admin'),function (req, res,next) {
+        var donor = new Donor();
+        donor.first_name = req.body.first_name;
+        donor.address_line1 = req.body.addr1;
+        donor.address_line2 = req.body.addr2;
+        donor.email = req.body.email;
+        donor.last_name = req.body.last_name;
+        donor.phone = req.body.phone;
+        donor.location =req.body.location;
+        donor.pincode =req.body.pincode;
+        donor.gender =req.body.gender;
+        donor.bloodgroup=req.body.bloodgroup;
+        donor.status="NotConfirmed";
+         var geocoder = require('geocoder'); 
+         geocoder.geocode(donor.pincode,function ( err, data ) {
+                                            if(err)
+                                            {
+                                                res.json({
+                                                    success: false,
+                                                    message: "Exist"
+                                                });
+                                            }
+                                            else   
+                                                {
+                                                 donor.latitude = data.results[0].geometry.location.lat;
+                                                 donor.longitude = data.results[0].geometry.location.lng;
+                                                 console.log("error");
+                                                        Donor.addDonor(donor, function (err, donor) {
+                                                        if (err) {
+                                                            if(donor.latitude==undefined)
+                                                            {
+                                                                res.json({
+                                                                    success:false,
+                                                                    message:"wrong latitude"
+                                                                });
+                                                            }
+                                                            else
+                                                            {
+                                                            res.json({
+                                                                success: false,
+                                                                message: "Exist"
+                                                            });
+                                                            }
+                                                        } else {
+                                                              console.log(donor);
+                                                            res.json({
+                                                                success: true,
+                                                                message: "Created"
+                                                            });
+                                                        }
+                                                      });    
+                                               }                        
+        }); 
+      
+});   
     router.post('/register', function (req, res) {
         var user = new User();
         user.first_name = req.body.first_name;
