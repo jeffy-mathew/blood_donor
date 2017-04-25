@@ -9,6 +9,14 @@ export class ValidateService {
             return true;
         }
     }
+    validateSingleRegister(newdonor: any) {
+        if (newdonor.first_name == undefined || newdonor.last_name == undefined || newdonor.phone == undefined || newdonor.addr1 == undefined || newdonor.addr2 == undefined || newdonor.location == undefined || newdonor.pincode == undefined || newdonor.gender == undefined || newdonor.bloodgroup == undefined) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
     validateEmail(email: any) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
@@ -25,6 +33,11 @@ export class ValidateService {
             return false;
         }
     }
+    validatePincode(pincode:any){
+              var re = /^\d{6}$/;
+            return re.test(pincode);
+        }
+
     validateSearch(loc: any, bgroup: any, date: any) {
         if (loc == undefined || bgroup == undefined || date == undefined) {
             return false;

@@ -1,65 +1,86 @@
 
 <!--Header-part-->
 <div id="header">
-  <h1><a href="dashboard.html">Dashboard</a></h1>
-</div>
-<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
-  <ul>
-    <li class="active"><a href="index.html"><i class="icon icon-home"></i> <span>Upload Excel</span></a> </li>
-    
-    <li> <a href="approvals.html"><i class="icon icon-inbox"></i> <span>Approvals</span></a> </li>
-    <li><a href="lists.html"><i class="icon icon-th"></i> <span>List</span></a></li>
-    <li><a href="entry.html"><i class="icon icon-fullscreen"></i> <span>Indivudual Entry</span></a></li>
-   
-  </ul>
+  <h1>Dashboard</h1>
 </div>
 <!--sidebar-menu-->
 
 <!--main-container-part-->
-<div id="content">
-<!--breadcrumbs-->
-  <div id="content-header">
-    <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
-  </div>
-<!--End-breadcrumbs-->
-
-<!--Action boxes-->
-  <div class="container-fluid">
-    <div class="quick-actions_homepage">
-      <ul class="quick-actions">
-        <li class="bg_lb"> <a href="index.html"> <i class="icon-dashboard"></i>  My Dashboard </a> </li>
-       
-        <li class="bg_ly"> <a href="widgets.html"> <i class="icon-inbox"></i> Widgets </a> </li>
-        <li class="bg_lo"> <a href="tables.html"> <i class="icon-th"></i> Tables</a> </li>
-       
-        <li class="bg_lo span3"> <a href="form-common.html"> <i class="icon-th-list"></i> Forms</a> </li>
-       
-      </ul>
-    </div>
-<!--End-Action boxes-->    
-
-<!--Chart-box-->    
-    <div class="row-fluid">
-      <div class="widget-box">
-        <div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
-          <h5>Upload Excel sheet</h5>
-        </div>
-        <div class="widget-content" >
-          <div class="row-fluid">
-            <div class="span9">
-              <div class="chart"></div>
-            </div>
-           
-          </div>
-        </div>
-      </div>
-    </div>
-<!--End-Chart-box--> 
-    <hr/>
-    
-  </div>
-</div>
-
-<!--end-main-container-part-->
-
-<!--Footer-part-->
+ <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-9">
+                                        <div class="huge">Upload Excel</div>
+                                        <div>Upload Donor Details Via Excel file</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a [routerLink]="['/excelconverter']">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Click Here</span>
+                                    <!--<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>-->
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-9">
+                                        <div class="huge">Pending Approvals</div>
+                                        <div>Take Decision on newly entered Donor details</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Click Here</span>
+                                    <!--<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>-->
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-9">
+                                        <div class="huge">List Donors</div>
+                                        <div><br/>View Total Donors List </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a [routerLink]="['/listdonors']">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Click Here</span>
+                                    <!--<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>-->
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-9">
+                                        <div class="huge">Single Entry</div>
+                                        <div>Enter Donor Details Indivudually</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a [routerLink]="['/singleentry']">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Click Here</span>
+                                    <!--<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>-->
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>

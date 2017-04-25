@@ -1,0 +1,100 @@
+<div class="jumbotron">
+  <div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2">
+			<form role="form" (submit)="donorformSubmit($event)">
+				<h2>Enter The Donor Details </h2>
+				<hr class="colorgraph">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group">
+							<input type="text" name="first_name" [(ngModel)]="first_name" id="first_name" class="form-control input-md" placeholder="First Name" tabindex="1">
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group">
+							<input type="text" name="last_name" id="last_name" [(ngModel)]="last_name" class="form-control input-md" placeholder="Last Name" tabindex="2">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group">
+							<input type="text" name="phone" id="phone" class="form-control input-md" placeholder="Mobile Number" [(ngModel)]="phone" tabindex="3">
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group">
+							<input type="email" name="email" id="email"  [(ngModel)]="email" class="form-control input-md" placeholder="Email Address" tabindex="4">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12">
+						<div class="form-group">
+							<input type="text" [(ngModel)]="addr1" name="addr1" id="address1" class="form-control input-md" placeholder="Address Lane 1" tabindex="5">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12">
+						<div class="form-group">
+							<input type="text" [(ngModel)]="addr2" name="addr2" id="address2" class="form-control input-md" placeholder="Address Lane 2" tabindex="6">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group">
+							<input type="text" [(ngModel)]="location" name="location" id="location" class="form-control input-md" placeholder="Location" tabindex="7">
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group">
+							<input type="text" [(ngModel)]="pincode" name="pincode" id="pincode" class="form-control input-md" placeholder="PIN CODE" tabindex="8">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="col-md-5">
+							<label>Gender :</label>
+						</div>
+						<div class="col-md-7">
+						<div class="form-group">
+							<!--<input type="text" name="gender" [(ngModel)]="gender" id="gender" class="form-control input-md" placeholder="First Name" tabindex="1">-->
+							<select class="form-control" [(ngModel)]="gender" name="gender" id="gender" tabindex="9" >
+         						 <option>Male</option>
+         						 <option>Female</option>
+       						 </select>
+						</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="col-md-5">
+						<label>Blood Group :</label>
+						</div>
+						<div class="col-md-7">
+						<div class="form-group">
+							<!--<input type="text" name="last_name" id="last_name" [(ngModel)]="last_name" class="form-control input-md" placeholder="Last Name" tabindex="2">-->
+							        <select  class="form-control" name="bloodgroup" [(ngModel)]="bloodgroup" id="bloodgroup" tabindex="10">
+										 <option>O+ve</option>
+         								 <option>O-ve</option>
+         								 <option>B+ve</option>
+         								 <option>B-ve</option>
+        							</select>
+						</div>
+						</div>
+					</div>
+				</div>
+				
+				<hr class="colorgraph">
+				<div class="row">
+					<div class=" col-md-3"></div>
+					<div class="col-xs-12 col-md-6"><button type="submit" class="btn btn-primary btn-block btn-md" tabindex="11">Add Donor</button></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>

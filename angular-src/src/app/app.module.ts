@@ -8,8 +8,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {FlashMessagesModule} from'angular2-flash-messages';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { DatePickerModule } from 'ng2-datepicker';
-import { NgProgressModule } from 'ng2-progressbar';
-
+import  {NgProgressModule} from 'ng2-progressbar';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
@@ -21,22 +20,27 @@ import {ValidateService} from './services/validate.service';
 import {RegisterService} from './services/register.service';
 import {LoginService} from './services/login.service';
 import {LocationService} from './services/location.service';
-import {SearchService} from './services/search.service';
+import {DonorentryService} from './services/donorentry.service';
+
 
 import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
 import { ExcelconverterComponent } from './components/excelconverter/excelconverter.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
-
+import {SingleentryComponent} from './components/singleentry/singleentry.component';
+import { ListdonorsComponent } from './components/listdonors/listdonors.component';
 import { Ng2CompleterModule } from "ng2-completer";
-
+import { PendingapprovalsComponent } from './pendingapprovals/pendingapprovals.component';
 const appRoutes : Routes = [
   {path:'', component: HomeComponent},
   {path:'admindashboard', component: AdmindashboardComponent, canActivate:[AdminGuard]},
   {path:'excelconverter', component: ExcelconverterComponent, canActivate:[AdminGuard]},
+  {path:'singleentry', component: SingleentryComponent, canActivate:[AdminGuard]},
+  {path:'listdonors', component: ListdonorsComponent, canActivate:[AdminGuard]},
+  {path:'pendingapprovals', component: PendingapprovalsComponent, canActivate:[AdminGuard]},
   {path:'login', component: LoginComponent},
   {path:'register', component: RegisterComponent},
-  {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
+  {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({
@@ -51,9 +55,11 @@ const appRoutes : Routes = [
     FileSelectDirective,
     FileDropDirective,
     ExcelconverterComponent,
-    SidenavComponent,
-   
-  ],
+    SidenavComponent,  
+    SingleentryComponent,
+    ListdonorsComponent,
+    PendingapprovalsComponent
+   ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -71,7 +77,7 @@ const appRoutes : Routes = [
     AuthGuard,
     AdminGuard,
     LocationService,
-    SearchService
+    DonorentryService
   ],
   bootstrap: [AppComponent]
 })
