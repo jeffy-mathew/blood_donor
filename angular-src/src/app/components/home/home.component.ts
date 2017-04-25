@@ -6,12 +6,13 @@ import { LoginService } from '../../services/login.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ValidateService } from '../../services/validate.service';
 import { SearchService } from '../../services/search.service';
+import { SmsService } from '../../services/sms.service';
 import { NgProgressService } from "ng2-progressbar";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [LoginService, LocationService, ValidateService, SearchService],
+  providers: [LoginService, LocationService, ValidateService, SearchService, SmsService],
 })
 export class HomeComponent {
   protected searchStr: string;
@@ -19,6 +20,7 @@ export class HomeComponent {
   protected bgroup: String;
   protected searchData = [];
   protected searchresult = [];
+  disabledbtn: any[] = [];
   date: DateModel;
   options: DatePickerOptions;
   searchtoggle: boolean;
@@ -49,6 +51,7 @@ export class HomeComponent {
     private validateService: ValidateService,
     private searchService: SearchService,
     private pService: NgProgressService,
+    private smsService: SmsService
   ) {
     this.searchtoggle = true;
     this.options = new DatePickerOptions();
@@ -56,7 +59,7 @@ export class HomeComponent {
     this.dataService = completerService.local(this.searchData, 'location', 'location');
   }
 
-  toggle(){
+  toggle() {
     this.searchtoggle = true;
   }
 
@@ -75,8 +78,8 @@ export class HomeComponent {
         }
         else {
           this.searchresult = data.data;
-          for(var i=0;i<this.searchresult.length;i++){
-            this.searchresult[i].distance=data.distance[i];
+          for (var i = 0; i < this.searchresult.length; i++) {
+            this.searchresult[i].distance = data.distance[i];
           }
           this.pService.done();
           this.searchtoggle = false;
@@ -86,6 +89,22 @@ export class HomeComponent {
 
     }
 
+  }
+  disableButton(id:number) {
+    this.disabledbtn[id]=true;
+  }
+
+  sms(phonenum) {
+    const phoneno = { phone: phonenum }
+    this.smsService.smsApi(phoneno).subscribe(data => {
+      if(data.Status == "Success"){
+        this.flashMessage.show("Sent message to "+phonenum, { cssClass: 'alert-danger', timeout: 2000 })
+      }
+      else {
+        this.flashMessage.show(data.Details, { cssClass: 'alert-danger', timeout: 2000 })
+      }
+      console.log(data)
+    })
   }
 
 }

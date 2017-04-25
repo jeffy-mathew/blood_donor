@@ -11,8 +11,9 @@ var assert = require('assert');
 var fs = require('fs');
 var Donor = require('../models/donors');
 var https = require('https');
+var http = require('http');
 var async = require("async");
-
+var text = require('textbelt');
 module.exports = function (router) {
 
     var storage = multer.diskStorage({ //multers disk storage settings
@@ -392,6 +393,30 @@ module.exports = function (router) {
         });
     });
 
+    router.post('/sms', function (req, res, next) {
+        console.log(req.body.phone)
+        var options = {
+            "method": "GET",
+            "hostname": "2factor.in",
+            "port": null,
+            "path": "/API/V1/a8a21c70-29da-11e7-929b-00163ef91450/SMS/"+req.body.phone+"/AUTOGEN/ABCDEFjnjnjnjjnj",
+            "headers": {}
+        };
+        smsapi = function(response){
+            var result = '';
+            response.on('data',function(chunk){
+                result+=chunk;
+            });
+            response.on('end', function(){
+                result = JSON.parse(result);
+                res.json(result)
+            })
+        }
+       https.request(options, smsapi).end();
+                   
+        
+    })
+
     //Search Engine
     router.post('/search', function (req, res, next) {
         location = req.body.loc;
@@ -403,8 +428,8 @@ module.exports = function (router) {
                 return res.json({
                     err_desc: "Something went wrong"
                 });
-            }  else if (data.length == 0) {
-                
+            } else if (data.length == 0) {
+
                 return res.json({
                     success: false,
                     data: "none",

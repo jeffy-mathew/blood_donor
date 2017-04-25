@@ -22,7 +22,7 @@ import {RegisterService} from './services/register.service';
 import {LoginService} from './services/login.service';
 import {LocationService} from './services/location.service';
 import {SearchService} from './services/search.service';
-
+import {SmsService} from './services/sms.service'
 import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
 import { ExcelconverterComponent } from './components/excelconverter/excelconverter.component';
