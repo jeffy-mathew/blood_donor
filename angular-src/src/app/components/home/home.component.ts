@@ -68,7 +68,6 @@ export class HomeComponent {
       this.pService.start();
       const searchops = { loc: this.searchStr, bgroup: this.bgroup, date: this.date.formatted };
       this.searchService.getSearchResult(searchops).subscribe(data => {
-        console.log(data)
         if (data.success == false) {
           this.searchtoggle = true;
           this.flashMessage.show("No donors with selected bloog group available in the selected area", { cssClass: 'alert-danger', timeout: 3000 });
@@ -76,6 +75,9 @@ export class HomeComponent {
         }
         else {
           this.searchresult = data.data;
+          for(var i=0;i<this.searchresult.length;i++){
+            this.searchresult[i].distance=data.distance[i];
+          }
           this.pService.done();
           this.searchtoggle = false;
         }
