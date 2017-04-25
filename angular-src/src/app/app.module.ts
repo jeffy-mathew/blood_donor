@@ -21,7 +21,8 @@ import {RegisterService} from './services/register.service';
 import {LoginService} from './services/login.service';
 import {LocationService} from './services/location.service';
 import {DonorentryService} from './services/donorentry.service';
-
+import {ListdonorService} from './services/listdonor.service';
+import {PendingService} from './services/pending.service';
 
 import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
@@ -77,7 +78,9 @@ const appRoutes : Routes = [
     AuthGuard,
     AdminGuard,
     LocationService,
-    DonorentryService
+    DonorentryService,
+    ListdonorService,
+    PendingService
   ],
   bootstrap: [AppComponent]
 })

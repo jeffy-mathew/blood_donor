@@ -47,7 +47,6 @@ export class SingleentryComponent implements OnInit {
       bloodgroup:this.bloodgroup,
       type:this.userobj.type
     };
-    console.log(newdonor);
     if(!this.validateService.validateSingleRegister(newdonor)){
       this.flashMessage.show("Fill all fields",{cssClass:'alert-danger',timeout:2000});
       return false;
@@ -65,7 +64,6 @@ export class SingleentryComponent implements OnInit {
       return false;
     }
     this.donorentryService.addDonor(newdonor).subscribe(data => {
-      console.log(data);
       if(data.success){
         this.flashMessage.show("Successfully registered",{cssClass:'alert-success',timeout:2000});
         this.router.navigate(['/admindashboard']);

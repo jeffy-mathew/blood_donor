@@ -1,3 +1,35 @@
-<p>
-  pendingapprovals works!
-</p>
+<div class="row">
+      <table class="table table-bordered">
+        <thead>
+          <tr class="info">
+            <td>First Name</td>
+            <td>Second Name</td>
+            <td>Phone</td>
+            <td>Email</td>
+            <td>Address Line 1</td>
+            <td>Address Line 2</td>
+            <td>Gender</td>
+            <td>Location</td>
+            <td>Blood Group</td>
+            <td>Pincode</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of donorlist">
+            <td>{{r.first_name}}</td>
+            <td>{{r.last_name}}</td>
+            <td>{{r.phone}}</td>
+            <td>{{r.email}}</td>
+            <td>{{r.address_line1}}</td>
+            <td>{{r.address_line2}}</td>
+            <td>{{r.gender}}</td>
+            <td>{{r.location}}</td>
+            <td>{{r.bloodgroup}}</td>
+            <td>{{r.pincode}}</td>
+            <td><button type="submit" class="btn btn-primary btn-block" (click)="addacceptdonor(r.phone)">Accept</button><td>
+            <td><button type="submit" class="btn btn-primary btn-block" (click)="adddeclinedonor(r.phone)">Decline</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="submit" class="btn btn-primary btn-block" (click)="finishapproval()">Finish</button>
+    </div>

@@ -91,7 +91,6 @@ module.exports = function (router) {
                                                             });
                                                             }
                                                         } else {
-                                                              console.log(donor);
                                                             res.json({
                                                                 success: true,
                                                                 message: "Created"
@@ -447,7 +446,33 @@ module.exports = function (router) {
             }
         });
     });
-
+    //donor retrieval with approved status
+     router.post('/returndonors',passport.authenticate('jwt',{
+        session: false
+    }),adminCheck('admin'),function (req, res) {
+              Donor.searchByStatus("NotConfirmed", function (err, data) {
+                   if (err) {
+                return res.json({
+                    err_desc: "Something went wrong"
+                });
+             }
+             else if (data.length == 0) {
+                
+                return res.json({
+                    success: false,
+                    data: "none"
+                })
+            }
+            else
+            {
+                console.log("Correct");
+                 res.json({
+                                    success: true,
+                                    data: data
+                                })
+            }
+        });
+        });
     //Search Engine
     router.post('/search', function (req, res, next) {
         location = req.body.loc;

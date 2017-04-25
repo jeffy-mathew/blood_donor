@@ -36,5 +36,10 @@ module.exports.getLocations = function(callback){
 
 module.exports.searchByBgroup = function(bgroup,callback){
     const query = {bloodgroup:bgroup};
-    Donor.find(query,callback);
+    Donor.find(query,callback);    
 }
+module.exports.searchByStatus = function(stat,callback){
+    const query = {status:stat};
+    Donor.find(query,callback);    
+}
+
