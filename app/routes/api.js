@@ -11,6 +11,8 @@ var assert = require('assert');
 var fs = require('fs');
 var Donor = require('../models/donors');
 var https = require('https');
+var async = require("async");
+
 module.exports = function (router) {
 
     var storage = multer.diskStorage({ //multers disk storage settings
@@ -33,6 +35,16 @@ module.exports = function (router) {
             callback(null, true);
         }
     }).single('file');
+
+    //user group middleware
+    var adminCheck = function (user) {
+        return function (req, res, next) {
+            if (req.body && req.body.type == user)
+                next();
+            else
+                res.status(401).send('Unauthorized');
+        };
+    };
 
     router.post('/register', function (req, res) {
         var user = new User();
@@ -107,7 +119,7 @@ module.exports = function (router) {
     });
     router.get('/excelconverter', passport.authenticate('jwt', {
         session: false
-    }), function (req, res, next) {
+    }), adminCheck('admin'), function (req, res, next) {
         res.json({
             user: req.user
         });
@@ -391,50 +403,66 @@ module.exports = function (router) {
                 return res.json({
                     err_desc: "Something went wrong"
                 });
+            }  else if (data.length == 0) {
+                
+                return res.json({
+                    success: false,
+                    data: "none",
+                    distance: 0
+                })
             } else {
+
                 var k = 0;
                 var i = 0;
-                for (i = 0; i < data.length; i++) {
+                async.eachSeries(data, function (item, callback) {
                     var options = {
                         host: 'maps.googleapis.com',
-                        path: 'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=' + location + '&destinations=' + data[i].latitude + ',' + data[i].longitude + '&key=AIzaSyD4M1TkzIl0nyKObyXtrCOgHJpN_BDPb6A',
-
+                        path: 'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=' + location + '&destinations=' + item.latitude + ',' + item.longitude + '&key=AIzaSyD4M1TkzIl0nyKObyXtrCOgHJpN_BDPb6A',
                     }
-                    var count = i;
-
                     distanceapi = function (response) {
+
                         var result = '';
                         response.on('data', function (chunk) {
                             result += chunk;
                         });
                         response.on('end', function () {
+
                             result = JSON.parse(result);
                             distance = result.rows[0].elements[0].distance.text;
                             distance = distance.replace(/ km/, '');
-                           
+                            i++;
                             if (distance < 190) {
-                                selecteddonors[k] = data[count];
+                                selecteddonors[k] = item;
                                 donordistance[k] = distance;
                                 k++;
-                                
-                                returndata(count, data.length);
                             }
+
+                            if (i == data.length) {
+
+
+                                res.json({
+                                    success: true,
+                                    data: selecteddonors,
+                                    distance: donordistance
+                                })
+
+
+                            }
+
                         });
+
                     }
                     https.request(options, distanceapi).end();
-                }
+                    callback();
+
+                }, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+
+                });
             }
         })
-
-        function returndata(i, length) {
-            if (i == length-1) {
-                console.log(i)
-                res.json({
-                    data: selecteddonors,
-                    distance: donordistance
-                })
-            }
-        }
     })
 
     return router;

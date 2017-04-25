@@ -6,20 +6,22 @@ import { LoginService } from '../../services/login.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ValidateService } from '../../services/validate.service';
 import { SearchService } from '../../services/search.service';
+import { NgProgressService } from "ng2-progressbar";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [LoginService, LocationService, ValidateService, SearchService]
+  providers: [LoginService, LocationService, ValidateService, SearchService],
 })
 export class HomeComponent {
   protected searchStr: string;
   protected dataService: CompleterData;
   protected bgroup: String;
   protected searchData = [];
+  protected searchresult = [];
   date: DateModel;
   options: DatePickerOptions;
-
+  searchtoggle: boolean;
   getloation() {
     this.locationService.getLocations().subscribe(data => {
       var locations = data.data;
@@ -44,11 +46,18 @@ export class HomeComponent {
     private locationService: LocationService,
     private loginService: LoginService,
     private flashMessage: FlashMessagesService,
-    private validateService: ValidateService
+    private validateService: ValidateService,
+    private searchService: SearchService,
+    private pService: NgProgressService,
   ) {
+    this.searchtoggle = true;
     this.options = new DatePickerOptions();
     this.getloation();
     this.dataService = completerService.local(this.searchData, 'location', 'location');
+  }
+
+  toggle(){
+    this.searchtoggle = true;
   }
 
   onSubmit() {
@@ -56,8 +65,23 @@ export class HomeComponent {
       this.flashMessage.show("Missing Fields", { cssClass: 'alert-danger', timeout: 1000 });
     }
     else {
+      this.pService.start();
       const searchops = { loc: this.searchStr, bgroup: this.bgroup, date: this.date.formatted };
-      console.log(searchops);
+      this.searchService.getSearchResult(searchops).subscribe(data => {
+        console.log(data)
+        if (data.success == false) {
+          this.searchtoggle = true;
+          this.flashMessage.show("No donors with selected bloog group available in the selected area", { cssClass: 'alert-danger', timeout: 3000 });
+          this.pService.done();
+        }
+        else {
+          this.searchresult = data.data;
+          this.pService.done();
+          this.searchtoggle = false;
+        }
+
+      })
+
     }
 
   }

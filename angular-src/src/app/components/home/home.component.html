@@ -1,38 +1,76 @@
-<div class="jumbotron" style="position:relative;top: 50%;bot">
-  <div class="row">
-  <form role="form" (submit)="onSubmit()">
-    <div class="form-group">
-      <div class="col-md-5">
-        <label>Search City</label>
-        <ng2-completer [inputClass]="'form-control'" [placeholder]="'Search City'" [(ngModel)]="searchStr" [autofocus]="true" [datasource]="dataService"
-          [minSearchLength]="1" name="searchStr"></ng2-completer>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="'200'" [showSpinner]="'false'" [color]="'red'"
+  [trickleSpeed]="250" [thick]="true" [ease]="'linear'"></ng-progress>
+<div class="jumbotron">
+  <div class="row" *ngIf="searchtoggle">
+    <form role="form" (submit)="onSubmit()">
+      <div class="form-group">
+        <div class="col-md-5">
+          <label>Search City</label>
+          <ng2-completer [inputClass]="'form-control'" [placeholder]="'Search City'" [(ngModel)]="searchStr" [autofocus]="true" [datasource]="dataService"
+            [minSearchLength]="1" name="searchStr"></ng2-completer>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-2">
-        <label>Blood Group</label>
-        <select class="form-control" [(ngModel)]="bgroup" name="bgroup">
+      <div class="form-group">
+        <div class="col-md-2">
+          <label>Blood Group</label>
+          <select class="form-control" [(ngModel)]="bgroup" name="bgroup">
           <option>O+ve</option>
           <option>O-ve</option>
           <option>B+ve</option>
           <option>B-ve</option>
+          <option>A+ve</option>
+          <option>A-ve</option>
+          <option>AB+ve</option>
+          <option>AB-ve</option>
         </select>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-3">
-        <label>Select Date</label>
-        <ng2-datepicker [options]="options" class="form-control" [(ngModel)]="date" name="date"></ng2-datepicker>
+      <div class="form-group">
+        <div class="col-md-3">
+          <label>Select Date</label>
+          <ng2-datepicker [options]="options" class="form-control" [(ngModel)]="date" name="date"></ng2-datepicker>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-2">
-        <label>&nbsp;</label>
-        <button class="btn btn-primary btn-block" *ngIf="loginService.loginTrue()" type="submit">Search</button>
-        <label>&nbsp;</label>
-        <button class="btn btn-primary btn-block" [routerLink]="['/login']" *ngIf="!loginService.loginTrue()">Search</button>
+      <div class="form-group">
+        <div class="col-md-2">
+          <label>&nbsp;</label>
+          <button class="btn btn-primary btn-block" *ngIf="loginService.loginTrue()" type="submit">Search</button>
+          <label>&nbsp;</label>
+          <button class="btn btn-primary btn-block" [routerLink]="['/login']" *ngIf="!loginService.loginTrue()">Search</button>
+        </div>
       </div>
+    </form>
+  </div>
+  <div>
+    <div class="row">
+      <table class="table table-bordered" *ngIf="!searchtoggle">
+        <thead>
+          <tr class="info">
+            <td>First Name</td>
+            <td>Second Name</td>
+            <td>Phone</td>
+            <td>Address Line 1</td>
+            <td>Address Line 2</td>
+            <td>Gender</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of searchresult">
+            <td>{{r.first_name}}</td>
+            <td>{{r.last_name}}</td>
+            <td>{{r.phone}}</td>
+            <td>{{r.address_line1}}</td>
+            <td>{{r.address_line2}}</td>
+            <td>{{r.gender}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </form>
+
+  </div>
+</div>
+<div class="row" *ngIf="!searchtoggle">
+  <div class="col-md-2 col-md-offset-10">
+    <button type="button" (click)="toggle()" class="btn btn-primary btn-block">Search Again</button>
   </div>
 </div>

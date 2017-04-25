@@ -8,6 +8,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {FlashMessagesModule} from'angular2-flash-messages';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { DatePickerModule } from 'ng2-datepicker';
+import { NgProgressModule } from 'ng2-progressbar';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
@@ -20,7 +21,7 @@ import {ValidateService} from './services/validate.service';
 import {RegisterService} from './services/register.service';
 import {LoginService} from './services/login.service';
 import {LocationService} from './services/location.service';
-import {SearchService} from './services/search.service'
+import {SearchService} from './services/search.service';
 
 import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
@@ -60,7 +61,8 @@ const appRoutes : Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule,
     Ng2CompleterModule,
-    DatePickerModule
+    DatePickerModule,
+    NgProgressModule
   ],
   providers: [
     ValidateService,
