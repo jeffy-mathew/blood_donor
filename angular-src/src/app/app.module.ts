@@ -20,10 +20,15 @@ import {ValidateService} from './services/validate.service';
 import {RegisterService} from './services/register.service';
 import {LoginService} from './services/login.service';
 import {LocationService} from './services/location.service';
+<<<<<<< HEAD
 import {DonorentryService} from './services/donorentry.service';
 import {ListdonorService} from './services/listdonor.service';
 import {PendingService} from './services/pending.service';
 
+=======
+import {SearchService} from './services/search.service';
+import {SmsService} from './services/sms.service'
+>>>>>>> cb79897333ce18f9a92310797f0bd7cbfee84dad
 import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
 import { ExcelconverterComponent } from './components/excelconverter/excelconverter.component';

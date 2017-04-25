@@ -53,6 +53,7 @@
             <td>Address Line 2</td>
             <td>Gender</td>
             <td>Distance</td>
+            <td>Notify via SMS</td>
           </tr>
         </thead>
         <tbody>
@@ -64,6 +65,7 @@
             <td>{{r.address_line2}}</td>
             <td>{{r.gender}}</td>
             <td>{{r.distance}}</td>
+            <td><button [disabled]="disabledbtn[r.phone]" (click)="disableButton(r.phone)" (click)="sms(r.phone)" class="btn btn-xs btn-success">Send SMS</button></td>
           </tr>
         </tbody>
       </table>

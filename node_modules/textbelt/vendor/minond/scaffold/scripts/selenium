@@ -1,0 +1,9 @@
+#!/bin/bash
+
+name=selenium-server-standalone-2.42.1.jar
+url=http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.1.jar
+
+[ ! -d bin ] && mkdir bin
+[ ! -f bin/$name ] && wget $url -O bin/$name
+
+java -jar bin/$name
