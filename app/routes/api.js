@@ -13,7 +13,7 @@ var Donor = require('../models/donors');
 var https = require('https');
 var http = require('http');
 var async = require("async");
-var text = require('textbelt');
+var unique = require('array-unique');
 module.exports = function (router) {
 
     var storage = multer.diskStorage({ //multers disk storage settings
@@ -441,8 +441,13 @@ module.exports = function (router) {
                     err_desc: "Something went wrong"
                 });
             } else {
+                var loc =[];
+                for(var i = 0;i<location.length;i++){
+                    loc[i]=location[i].location;
+                }
+                loc = unique(loc);
                 res.json({
-                    data: location
+                    location: loc
                 })
             }
         });
