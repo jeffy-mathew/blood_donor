@@ -28,7 +28,7 @@
       <div class="form-group">
         <div class="col-md-3">
           <label>Select Date</label>
-          <ng2-datepicker [options]="options" class="form-control" [(ngModel)]="date" name="date"></ng2-datepicker>
+          <ng2-datepicker [options]="{minDate: dateExpires}" class="form-control" [(ngModel)]="date" name="date"></ng2-datepicker>
         </div>
       </div>
       <div class="form-group">
@@ -52,7 +52,7 @@
             <td>Address Line 1</td>
             <td>Address Line 2</td>
             <td>Gender</td>
-            <td>Distance</td>
+            <td>Distance in KM</td>
             <td>Notify via SMS</td>
           </tr>
         </thead>

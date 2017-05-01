@@ -175,7 +175,7 @@ module.exports = function (router) {
     });
     router.get('/excelconverter', passport.authenticate('jwt', {
         session: false
-    }), adminCheck('admin'), function (req, res, next) {
+    }), function (req, res, next) {
         res.json({
             user: req.user
         });
@@ -452,7 +452,7 @@ module.exports = function (router) {
             }
         });
     });
-<<<<<<< HEAD
+
     //donor retrieval with approved status
      router.post('/returndonors',passport.authenticate('jwt',{
         session: false
@@ -480,7 +480,6 @@ module.exports = function (router) {
             }
         });
         });
-=======
 
     router.post('/sms', function (req, res, next) {
         console.log(req.body.phone)
@@ -506,7 +505,6 @@ module.exports = function (router) {
         
     })
 
->>>>>>> cb79897333ce18f9a92310797f0bd7cbfee84dad
     //Search Engine
     router.post('/search', function (req, res, next) {
         location = req.body.loc;
@@ -514,6 +512,7 @@ module.exports = function (router) {
         var selecteddonors = [];
         var donordistance = [];
         Donor.searchByBgroup(bgroup, function (err, data) {
+        
             if (err) {
                 return res.json({
                     err_desc: "Something went wrong"
@@ -544,7 +543,15 @@ module.exports = function (router) {
 
                             result = JSON.parse(result);
                             distance = result.rows[0].elements[0].distance.text;
-                            distance = distance.replace(/ km/, '');
+                            if(distance[distance.length-1]=="m"&&distance[distance.length-2]=="k"){
+                                distance = distance.replace(/ km/, '');
+                            }
+                            else {
+                                distance = distance.replace(/ m/, '');
+                                distance = 1
+                            }
+                            console.log(distance)
+                            
                             i++;
                             if (distance < 190) {
                                 selecteddonors[k] = item;

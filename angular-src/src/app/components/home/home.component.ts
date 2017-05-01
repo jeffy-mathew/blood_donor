@@ -7,11 +7,12 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { ValidateService } from '../../services/validate.service';
 import { SearchService } from '../../services/search.service';
 import { NgProgressService } from "ng2-progressbar";
+import {SmsService} from '../../services/sms.service'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [LoginService, LocationService, ValidateService, SearchService],
+  providers: [LoginService, LocationService, ValidateService, SearchService,SmsService],
 })
 export class HomeComponent {
   protected searchStr: string;
@@ -22,6 +23,7 @@ export class HomeComponent {
   date: DateModel;
   options: DatePickerOptions;
   searchtoggle: boolean;
+  disabledbtn = []
   getloation() {
     var loc
     this.locationService.getLocations().subscribe(data => {
@@ -44,6 +46,7 @@ export class HomeComponent {
     private validateService: ValidateService,
     private searchService: SearchService,
     private pService: NgProgressService,
+    private smsService :SmsService
   ) {
     this.searchtoggle = true;
     this.options = new DatePickerOptions();
@@ -82,8 +85,7 @@ export class HomeComponent {
     }
 
   }
-<<<<<<< HEAD
-=======
+
   disableButton(id:number) {
     this.disabledbtn[id]=true;
   }
@@ -99,7 +101,6 @@ export class HomeComponent {
       }
       console.log(data)
     })
-  }
->>>>>>> 1ebab38b76dced1e8d053c28783b3382e674d413
+  } 
 
 }
